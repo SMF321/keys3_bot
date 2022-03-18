@@ -61,31 +61,9 @@ def GET_QUESTION(class_question1):
 
 
 def GET_SUGGESTIONS():
-    return db.select([Suggest.columns.Suggestion])
+    a = db.select([Suggest.columns.Suggestion])
+    mass_suggestions = []
+    for row in connection.execute(a).fetchall():
+        mass_suggestions.append(row[0])
+    return mass_suggestions
 
-
-id = 7
-phone = '88005553535'
-FIO = 'Иванов Иван Иванович'
-organization = 'ФСТЭК'
-username = '@123'
-question = 'Быть или не быть?Вот в чем вопрос'
-class_question = 'Философия'
-datetime = '16.03.2022'
-suggestion = 'Salary'
-description = 'negotiable'
-#POST_USER(id, FIO)
-#POST_PHONE(id, phone)
-#POST_ORGANIZATION(id, organization)
-#POST_USERNAME(id, username)
-#POST_QUESTION(id, question, class_question, datetime)
-#a = GET_QUESTION(class_question)
-# for row in connection.execute(a).fetchall():
-# print(row)
-a = GET_SUGGESTIONS()
-mass_suggestions = []
-for row in connection.execute(a).fetchall():
-    mass_suggestions.append(row[0])
-print(mass_suggestions)
-#POST_NEW_SUGGESTIONS(id, suggestion, description)
-# POST_USER_DATA(id,FIO,username)

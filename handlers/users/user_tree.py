@@ -6,7 +6,7 @@ from loader import dp
 
 from states.bot_states import Register
 from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not
-# from utils.db_api.main import POST_PHONE, POST_USER, POST_ORGANIZATION,POST_QUESTION,POST_EDIT_FIO
+from utils.db_api.main import GET_SUGGESTIONS
 
 
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
@@ -32,7 +32,7 @@ predlojeniya = [
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    await message.answer('Список действующих пердложений:', reply_markup=add_button(predlojeniya))
+    await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()))
     await Register.info_about_work.set()
 
 
