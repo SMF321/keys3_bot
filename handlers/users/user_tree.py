@@ -24,11 +24,6 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await Register.user_start.set()
         await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
 
-predlojeniya = [
-    'Создание Бота который может варить кофе',
-    'Создание всемогущего сайта',
-    'Создание чего-то для Сбера'
-]
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
@@ -38,14 +33,14 @@ async def fio_regular(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.info_about_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    if message.text == predlojeniya[0]:
+    if message.text == GET_SUGGESTIONS()[0]:
         await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
         
-    elif message.text == predlojeniya[1]:
+    elif message.text == GET_SUGGESTIONS()[1]:
         await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
-    elif message.text == predlojeniya[2]:
+    elif message.text == GET_SUGGESTIONS()[2]:
         await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
 
