@@ -12,15 +12,16 @@ from utils.db_api.main import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, P
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text == user_menu_button[0]:
-        await message.answer(f"тут какаято инфа. Далее возврат в меню")
+        await message.answer(f"Данный проект предназначен для следующих целей:")
         await Register.user_start.set()
         await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
     elif message.text == user_menu_button[1]:
-        await message.answer(f"Тут какая-то вступительная фраза перед ознакомлением с проектами, эта фраза тут необходима",reply_markup=add_button(help_button))
+        await message.answer(f"Перед выбором тем обращений внимательно ознакомьтесь с содержанием требований",reply_markup=add_button(help_button))
         await Register.project_list.set()
         # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
     elif message.text == user_menu_button[2]:
-        await message.answer(f"тут будет колин запрос к бд")
+        await message.answer(f"Ваша история обращений:")
+        await message.answer(f"Я Junior WebDeveloper")
         await Register.user_start.set()
         await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
 
@@ -33,19 +34,14 @@ async def fio_regular(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.info_about_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    if message.text == GET_SUGGESTIONS()[0]:
+    if message.text in GET_SUGGESTIONS():
         POST_CLASS_QUESTION(message.chat.id,message.text)
         await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
-        
-    elif message.text == GET_SUGGESTIONS()[1]:
-        POST_CLASS_QUESTION(message.chat.id,message.text)
-        await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
-        await Register.info_about_concrete_work.set()
-    elif message.text == GET_SUGGESTIONS()[2]:
-        POST_CLASS_QUESTION(message.chat.id,message.text)
-        await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
-        await Register.info_about_concrete_work.set()
+    else:
+        await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()))
+        await Register.info_about_work.set()
+    
 
 @dp.message_handler(state=Register.info_about_concrete_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
@@ -86,8 +82,8 @@ async def fio_regular(message: types.Message, state: FSMContext):
 async def fio_regular(message: types.Message, state: FSMContext):
     print(type(datetime.now().isoformat()))
     p=str(datetime.now().isoformat())
-    POST_QUESTION(message.chat.id, message.text,p)
-    await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добвить Вас в группу-обсцждение.\nОбязуемся не делисться Вашими персональными данными.\n(Например : +71234567890)')
+    # POST_QUESTION(message.chat.id, message.text,p)
+    await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добавить Вас в группу-обсцждение.\nОбязуемся не делиться Вашими персональными данными.\n(Например : +71234567890)')
     await Register.quesion.set()
 
 
@@ -102,6 +98,6 @@ async def fio_regular(message: types.Message, state: FSMContext):
             await Register.user_start.set()
             await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
     except:
-        await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добвить Вас в группу-обсцждение.\nОбязуемся не делисться Вашими персональными данными.\n(Например : +71234567890)')
+        await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добавить Вас в группу-обсуждение.\nОбязуемся не делиться Вашими персональными данными.\n(Например : +71234567890)')
         await Register.quesion.set()
     

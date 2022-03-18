@@ -52,7 +52,7 @@ def POST_QUESTION(id1, question1,  datetime1):
                                        datetime=datetime1)
 
     query = query.where(Question.columns.Id == id1).where(
-        Question.columns.Question == '', Question.columns.Datetime == '')
+        Question.columns.Question == '', Question.columns.datetime == '')
     results = connection.execute(query)
 
 
