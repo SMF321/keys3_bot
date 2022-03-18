@@ -75,3 +75,15 @@ def GET_DESCRIPTION(suggestion1):
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description[0]
+
+
+def UPDATE__USER_DATA_USER(id1, fio1, username1):
+    query = db.update(User_Data).values(FIO=fio1,
+                                        Username=username1)
+
+    query = query.where(User_Data.columns.Id == id1)
+    ResultProxy = connection.execute(query)
+    query = db.update(Users).values(Username=username1, FIO=fio1,
+                                    )
+    query = query.where(Users.columns.Id == id1)
+    ResultProxy = connection.execute(query)
