@@ -6,7 +6,7 @@ from loader import dp
 
 from states.bot_states import Register
 from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not
-from utils.db_api.main import GET_SUGGESTIONS
+from utils.db_api.main import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER
 
 
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
@@ -34,14 +34,14 @@ async def fio_regular(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Register.info_about_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text == GET_SUGGESTIONS()[0]:
-        await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
+        await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
         
     elif message.text == GET_SUGGESTIONS()[1]:
-        await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
+        await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
     elif message.text == GET_SUGGESTIONS()[2]:
-        await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
+        await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
 
 @dp.message_handler(state=Register.info_about_concrete_work, content_types=types.ContentTypes.ANY)
@@ -61,7 +61,8 @@ async def fio_regular(message: types.Message, state: FSMContext):
         r'[А-ЯЁ][а-яё]+\s+[А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ][а-яё]+)?', rf'{message.text}')
     try:
         if match.group(0):
-            
+            POST_USER(message.chat.id,message.text)
+            POST_USER_DATA(message.chat.id,message.text,message.chat.username)
             await message.answer('Напишите что-то о себе чтоб вас взли в этот проект...')
             await Register.organization.set()
             # try:
