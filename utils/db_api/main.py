@@ -1,7 +1,7 @@
 import sqlalchemy as db
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 #DATABASE_NAME = 'database.sqlite'
-engine = db.create_engine(f'sqlite:///C:\hakaton\keys3_bot\utils\db_api\database.sqlite')
+engine = db.create_engine(f'sqlite:///utils\db_api\database.sqlite')
 connection = engine.connect()
 metadata = db.MetaData()
 
@@ -41,9 +41,6 @@ def POST_PHONE(id1, phone1):
     results = connection.execute(query)
 
 
-
-
-
 def POST_USERNAME(id1, username1):
     query = db.update(Users).values(Username=username1)
     query = query.where(Users.columns.Id == id1)
@@ -61,6 +58,10 @@ def POST_QUESTION(id1, question1, class_question1, datetime1):
 def GET_QUESTION(class_question1):
     return db.select([Question.columns.Class_question, Question.columns.Question, Users.columns.Username, Users.columns.FIO, Question.columns.datetime]).where(
         Question.columns.Class_question == class_question1).where(Users.columns.Id == Question.columns.Id)
+
+
+def GET_SUGGESTIONS():
+    return db.select([Suggest.columns.Suggestion])
 
 
 id = 7
@@ -81,6 +82,10 @@ description = 'negotiable'
 #a = GET_QUESTION(class_question)
 # for row in connection.execute(a).fetchall():
 # print(row)
-
+a = GET_SUGGESTIONS()
+mass_suggestions = []
+for row in connection.execute(a).fetchall():
+    mass_suggestions.append(row[0])
+print(mass_suggestions)
 #POST_NEW_SUGGESTIONS(id, suggestion, description)
 # POST_USER_DATA(id,FIO,username)
