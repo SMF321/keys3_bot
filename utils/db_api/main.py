@@ -1,7 +1,7 @@
 import sqlalchemy as db
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 DATABASE_NAME = 'database.sqlite'
-engine = db.create_engine(f'sqlite:///{DATABASE_NAME}')
+engine = db.create_engine(f'sqlite:///C:\Users\Kolya\Desktop\DONE_BOT\keys3_bot\utils\db_api\database.sqlite')
 connection = engine.connect()
 metadata = db.MetaData()
 
