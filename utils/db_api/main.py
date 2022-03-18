@@ -51,7 +51,8 @@ def POST_QUESTION(id1, question1,  datetime1):
     query = db.update(Question).values(Question=question1,
                                        datetime=datetime1)
 
-    query = query.where(Question.columns.Id == id1)
+    query = query.where(Question.columns.Id == id1).where(
+        Question.columns.Question == '', Question.columns.Datetime == '')
     results = connection.execute(query)
 
 
