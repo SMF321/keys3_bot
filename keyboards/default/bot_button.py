@@ -4,7 +4,7 @@ from aiogram.types import ReplyKeyboardRemove, \
     InlineKeyboardMarkup, InlineKeyboardButton
 
 user_menu_button = ['Информация о проекте',
-                    'Действующие проеложения', 'История моих обращений']
+                    'Действующие проедложения', 'История моих обращений']
 admin_menu_button = ['Просмотр обращений по темам',
                      'Добавить кнопку', 'Удалить кнопку']
 topics_for_appeals = ['Кошечки', 'Собачки']

@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 import re
-import datetime
+from datetime import datetime
 from loader import dp
 
 from states.bot_states import Register
@@ -84,7 +84,9 @@ async def fio_regular(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.organization, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    # POST_QUESTION(message.chat.id, message.text,datetime.now)
+    print(type(datetime.now().isoformat()))
+    p=str(datetime.now().isoformat())
+    POST_QUESTION(message.chat.id, message.text,p)
     await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добвить Вас в группу-обсцждение.\nОбязуемся не делисться Вашими персональными данными.\n(Например : +71234567890)')
     await Register.quesion.set()
 
