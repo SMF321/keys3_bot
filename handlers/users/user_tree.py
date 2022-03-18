@@ -6,7 +6,7 @@ from loader import dp
 
 from states.bot_states import Register
 from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not
-from utils.db_api.main import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER
+from utils.db_api.main import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER,UPDATE__USER_DATA_USER
 
 
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
@@ -61,8 +61,11 @@ async def fio_regular(message: types.Message, state: FSMContext):
         r'[А-ЯЁ][а-яё]+\s+[А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ][а-яё]+)?', rf'{message.text}')
     try:
         if match.group(0):
-            POST_USER(message.chat.id,message.text)
-            POST_USER_DATA(message.chat.id,message.text,message.chat.username)
+            try:
+                POST_USER(message.chat.id,message.text)
+                POST_USER_DATA(message.chat.id,message.text,message.chat.username)
+            except:
+                UPDATE__USER_DATA_USER(message.chat.id,message.text,message.chat.username)
             await message.answer('Напишите что-то о себе чтоб вас взли в этот проект...')
             await Register.organization.set()
             # try:
