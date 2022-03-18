@@ -18,6 +18,8 @@ def POST_USER(id1, FIO1):
     query = db.insert(Users).values(Id=id1, Username='',
                                     FIO=FIO1, Phone='')
     ResultProxy = connection.execute(query)
+
+def POST_TEST(id1):  
     query = db.insert(Question).values(Id=id1, Question='',
                                        Class_question='')
     ResultProxy = connection.execute(query)

@@ -6,7 +6,8 @@ from loader import dp
 
 from states.bot_states import Register
 from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not
-from utils.db_api.main import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER,UPDATE__USER_DATA_USER,POST_QUESTION,POST_CLASS_QUESTION,POST_PHONE
+from utils.db_api.main import *
+#import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER,UPDATE__USER_DATA_USER,POST_QUESTION,POST_CLASS_QUESTION,POST_PHONE
 
 
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
@@ -35,6 +36,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Register.info_about_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text in GET_SUGGESTIONS():
+        POST_TEST(message.chat.id)
         POST_CLASS_QUESTION(message.chat.id,message.text)
         await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
