@@ -6,7 +6,7 @@ from loader import dp
 
 from states.bot_states import Register
 from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not
-from utils.db_api.main import POST_PHONE, POST_USER, POST_ORGANIZATION,POST_QUESTION,POST_EDIT_FIO
+# from utils.db_api.main import POST_PHONE, POST_USER, POST_ORGANIZATION,POST_QUESTION,POST_EDIT_FIO
 
 
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
@@ -43,13 +43,11 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await Register.info_about_concrete_work.set()
         
     elif message.text == predlojeniya[1]:
-        await message.answer(f"Тут какая-то вступительная фраза перед ознакомлением с проектами, эта фраза тут необходима",reply_markup=add_button(help_button))
-        await Register.project_list.set()
-        # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+        await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
+        await Register.info_about_concrete_work.set()
     elif message.text == predlojeniya[2]:
-        await message.answer(f"тут будет колин запрос к бд")
-        await Register.user_start.set()
-        await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+        await message.answer(f"тут какаято инфа бд коли",reply_markup=add_button(back_button_or_not))
+        await Register.info_about_concrete_work.set()
 
 @dp.message_handler(state=Register.info_about_concrete_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
