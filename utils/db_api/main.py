@@ -47,10 +47,16 @@ def POST_USERNAME(id1, username1):
     results = connection.execute(query)
 
 
-def POST_QUESTION(id1, question1, class_question1, datetime1):
+def POST_QUESTION(id1, question1,  datetime1):
     query = db.update(Question).values(Question=question1,
-                                       Class_question=class_question1, datetime=datetime1)
+                                       datetime=datetime1)
 
+    query = query.where(Question.columns.Id == id1)
+    results = connection.execute(query)
+
+
+def POST_CLASS_QUESTION(id1, class_question1):
+    query = db.update(Question).values(Class_question=class_question1)
     query = query.where(Question.columns.Id == id1)
     results = connection.execute(query)
 
