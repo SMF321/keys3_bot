@@ -1,7 +1,7 @@
 import sqlalchemy as db
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 #DATABASE_NAME = 'database.sqlite'
-engine = db.create_engine(f'sqlite:///C:\Users\Kolya\Desktop\DONE_BOT\keys3_bot\utils\db_api\database.sqlite')
+engine = db.create_engine(f'sqlite:///C:\hakaton\keys3_bot\utils\db_api\database.sqlite')
 connection = engine.connect()
 metadata = db.MetaData()
 
@@ -16,7 +16,7 @@ Suggest = db.Table('Current_Suggestion', metadata,
 
 def POST_USER(id1, FIO1):
     query = db.insert(Users).values(Id=id1, Username='',
-                                    FIO=FIO1, Phone='', Company='')
+                                    FIO=FIO1, Phone='')
     ResultProxy = connection.execute(query)
     query = db.insert(Question).values(Id=id1, Question='',
                                        Class_question='', datetime='')
@@ -41,10 +41,7 @@ def POST_PHONE(id1, phone1):
     results = connection.execute(query)
 
 
-def POST_ORGANIZATION(id1, company1):
-    query = db.update(Users).values(Company=company1)
-    query = query.where(Users.columns.Id == id1)
-    results = connection.execute(query)
+
 
 
 def POST_USERNAME(id1, username1):
