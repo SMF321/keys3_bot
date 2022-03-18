@@ -1,12 +1,12 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 import re
-
+import datetime
 from loader import dp
 
 from states.bot_states import Register
 from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not
-from utils.db_api.main import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER,UPDATE__USER_DATA_USER
+from utils.db_api.main import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER,UPDATE__USER_DATA_USER,POST_QUESTION,POST_CLASS_QUESTION
 
 
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
@@ -34,13 +34,16 @@ async def fio_regular(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Register.info_about_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text == GET_SUGGESTIONS()[0]:
+        POST_CLASS_QUESTION(message.chat.id,message.text)
         await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
         
     elif message.text == GET_SUGGESTIONS()[1]:
+        POST_CLASS_QUESTION(message.chat.id,message.text)
         await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
     elif message.text == GET_SUGGESTIONS()[2]:
+        POST_CLASS_QUESTION(message.chat.id,message.text)
         await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
         await Register.info_about_concrete_work.set()
 
@@ -81,7 +84,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.organization, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    # TODO kolya and ser
+    # POST_QUESTION(message.chat.id, message.text,datetime.now)
     await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добвить Вас в группу-обсцждение.\nОбязуемся не делисться Вашими персональными данными.\n(Например : +71234567890)')
     await Register.quesion.set()
 
