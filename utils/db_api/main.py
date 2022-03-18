@@ -19,7 +19,7 @@ def POST_USER(id1, FIO1):
                                     FIO=FIO1, Phone='')
     ResultProxy = connection.execute(query)
     query = db.insert(Question).values(Id=id1, Question='',
-                                       Class_question='', datetime='')
+                                       Class_question='')
     ResultProxy = connection.execute(query)
 
 
@@ -47,12 +47,11 @@ def POST_USERNAME(id1, username1):
     results = connection.execute(query)
 
 
-def POST_QUESTION(id1, question1,  datetime1):
-    query = db.update(Question).values(Question=question1,
-                                       datetime=datetime1)
+def POST_QUESTION(id1, question1):
+    query = db.update(Question).values(Question=question1)
 
     query = query.where(Question.columns.Id == id1).where(
-        Question.columns.Question == '', Question.columns.datetime == '')
+        Question.columns.Question == '')
     results = connection.execute(query)
 
 
