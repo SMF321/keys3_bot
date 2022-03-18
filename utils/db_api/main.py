@@ -67,3 +67,11 @@ def GET_SUGGESTIONS():
         mass_suggestions.append(row[0])
     return mass_suggestions
 
+
+def GET_DESCRIPTION(suggestion1):
+    a = db.select([Suggest.columns.Description]).where(
+        Suggest.columns.Suggestion == suggestion1)
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description[0]
