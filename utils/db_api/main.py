@@ -7,7 +7,11 @@ metadata = db.MetaData()
 
 
 Users = db.Table('Users', metadata, autoload=True, autoload_with=engine)
+User_Data = db.Table('User_Data', metadata,
+                     autoload=True, autoload_with=engine)
 Question = db.Table('Question', metadata, autoload=True, autoload_with=engine)
+Suggest = db.Table('Current_Suggestion', metadata,
+                   autoload=True, autoload_with=engine)
 
 
 def POST_USER(id1, FIO1):
@@ -19,10 +23,16 @@ def POST_USER(id1, FIO1):
     ResultProxy = connection.execute(query)
 
 
-def POST_EDIT_FIO(id1, FIO1):
-    query = db.update(Users).values(FIO=FIO1)
-    query = query.where(Users.columns.Id == id1)
-    results = connection.execute(query)
+def POST_NEW_SUGGESTIONS(id1, suggestion1, description):
+    query = db.insert(Suggest).values(Id=id1, Suggestion=suggestion1,
+                                      Description=description)
+    ResultProxy = connection.execute(query)
+
+
+def POST_USER_DATA(id1, fio1, username1):
+    query = db.insert(User_Data).values(Id=id1, FIO=fio1,
+                                        Username=username1)
+    ResultProxy = connection.execute(query)
 
 
 def POST_PHONE(id1, phone1):
@@ -56,7 +66,7 @@ def GET_QUESTION(class_question1):
         Question.columns.Class_question == class_question1).where(Users.columns.Id == Question.columns.Id)
 
 
-id = 1
+id = 7
 phone = '88005553535'
 FIO = 'Иванов Иван Иванович'
 organization = 'ФСТЭК'
@@ -64,6 +74,8 @@ username = '@123'
 question = 'Быть или не быть?Вот в чем вопрос'
 class_question = 'Философия'
 datetime = '16.03.2022'
+suggestion = 'Salary'
+description = 'negotiable'
 #POST_USER(id, FIO)
 #POST_PHONE(id, phone)
 #POST_ORGANIZATION(id, organization)
@@ -72,4 +84,6 @@ datetime = '16.03.2022'
 #a = GET_QUESTION(class_question)
 # for row in connection.execute(a).fetchall():
 # print(row)
-POST_EDIT_FIO(id, FIO)
+
+#POST_NEW_SUGGESTIONS(id, suggestion, description)
+# POST_USER_DATA(id,FIO,username)
