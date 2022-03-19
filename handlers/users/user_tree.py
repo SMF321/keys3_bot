@@ -33,7 +33,10 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    POST_USER_DATA(message.chat.id, message.chat.username)
+    try:
+        POST_USER_DATA(message.chat.id, message.chat.username)
+    except:
+        pass
     await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()))
     await Register.info_about_work.set()
 
