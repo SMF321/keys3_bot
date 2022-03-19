@@ -44,7 +44,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.print_sekret_topics, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    if message.text in GET_SECRET_SUGGESTION1():
+    if message.text in GET_SECRET_SUGGESTION_ALL():
         POST_TEST(message.chat.id)
         POST_CLASS_QUESTION(message.chat.id,message.text)
         await message.answer(GET_SECRET_DESCRIPTION(message.text))
