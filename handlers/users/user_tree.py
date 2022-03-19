@@ -42,6 +42,20 @@ async def fio_regular(message: types.Message, state: FSMContext):
         await Register.user_start.set()
         await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
 
+@dp.message_handler(state=Register.print_sekret_topics, content_types=types.ContentTypes.ANY)
+async def fio_regular(message: types.Message, state: FSMContext):
+    if message.text in GET_SECRET_SUGGESTION1():
+        POST_TEST(message.chat.id)
+        POST_CLASS_QUESTION(message.chat.id,message.text)
+        await message.answer(GET_SECRET_DESCRIPTION(message.text))
+        await message.answer('📝Напишите что-то о себе📝\n(Например : Я самый лучший работник, владею 5 языками.)')
+        await Register.quesion.set()
+    elif message.text == 'Назад':
+        await Register.user_start.set()
+        await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
+    else:
+        await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SECRET_SUGGESTION(message.text)).add(back_add))
+        await Register.print_sekret_topics.set()
 
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
