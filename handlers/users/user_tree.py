@@ -96,6 +96,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
     try:
         if match1.group(0):
             POST_PHONE(message.chat.id, message.text)
+            POST_QUESTION_DELETE(message.chat.id)
             await message.answer('Спасибо за Ваш вопрос, мы свяжемся с Вами в ближайшее время.\nЕсли Вас добавят в группу не удивляйтесь')
             await Register.user_start.set()
             await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
