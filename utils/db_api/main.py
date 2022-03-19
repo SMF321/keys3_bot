@@ -144,7 +144,7 @@ def GET_VIEW2(id1, class_question1, question):
         Question.columns.Question == question)
     ResultProxy = connection.execute(query)
     if (id1 == -1):
-        return
+        return 'Все записи по данной теме просмотрены'
     a = db.select([User_Data.columns.Username]).where(
         User_Data.columns.Id == id1)
     mass_description2 = []
