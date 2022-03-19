@@ -14,7 +14,7 @@ Suggest = db.Table('Current_Suggestion', metadata,
 
 def POST_TEST(id1):
     query = db.insert(Question).values(Id=id1, Question='',
-                                       Class_question='')
+                                       Class_question='', DONE=0)
     ResultProxy = connection.execute(query)
 
 
