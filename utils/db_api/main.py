@@ -208,7 +208,7 @@ def GET_SECRET_SUGGESTION(secret_key1):
     return mass_description
 
 
-def GET_SECRET_KEY(secret_key1):
+def POST_SECRET_KEY(secret_key1):
     query = db.insert(Secret).values(Secret_key=secret_key1, Secret_suggestion='',
                                      Class_descriptor='')
     ResultProxy = connection.execute(query)
