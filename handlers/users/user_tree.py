@@ -5,7 +5,7 @@ import re
 from loader import dp
 
 from states.bot_states import Register
-from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not
+from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not, back_add
 from utils.db_api.main import *
 #import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER,UPDATE__USER_DATA_USER,POST_QUESTION,POST_CLASS_QUESTION,POST_PHONE
 
@@ -13,22 +13,22 @@ from utils.db_api.main import *
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.chat.id in GET_BAN():
-        await message.answer('Вы были забанены админмистратором')
+        await message.answer('❗️Вы были забанены админмистратором❗️')
     else:
         if message.text == user_menu_button[0]:
             await message.answer(f"Данный проект предназначен для следующих целей:")
             await Register.user_start.set()
-            await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+            await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
         elif message.text == user_menu_button[1]:
-            await message.answer(f"Перед выбором тем обращений внимательно ознакомьтесь с содержанием требований",reply_markup=add_button(help_button))
+            await message.answer(f"❗️ Перед выбором тем обращений внимательно ознакомьтесь с содержанием требований❗️",reply_markup=add_button(help_button))
             await Register.project_list.set()
             # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
         elif message.text == user_menu_button[2]:
-            await message.answer(f"Ваша история обращений:")
+            await message.answer(f"📜Ваша история обращений📜:")
             for i in range(len(GET_QUESTION(message.chat.id)[0])):
                 await message.answer(f"Тема обращения : {(GET_QUESTION(message.chat.id)[1][i])}\n" + f"Текст обращения : {(GET_QUESTION(message.chat.id)[0][i])}")
             await Register.user_start.set()
-            await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+            await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
 
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
@@ -37,7 +37,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
         POST_USER_DATA(message.chat.id, message.chat.username)
     except:
         pass
-    await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()))
+    await message.answer('📄Список действующих пердложений📄:', reply_markup=add_button(GET_SUGGESTIONS()).add(back_add))
     await Register.info_about_work.set()
 
 
@@ -46,10 +46,14 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text in GET_SUGGESTIONS():
         POST_TEST(message.chat.id)
         POST_CLASS_QUESTION(message.chat.id,message.text)
-        await message.answer('Напишите что-то о себе чтобы вас взяли в этот проект...')
+        await message.answer(GET_DESCRIPTION(message.text))
+        await message.answer('📝Напишите что-то о себе📝\n(Например : Я самый лучший работник, владею 5 языками.)')
         await Register.quesion.set()
+    elif message.text == 'Назад':
+        await Register.user_start.set()
+        await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
     else:
-        await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()))
+        await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()).add(back_add))
         await Register.info_about_work.set()
     
 
@@ -57,29 +61,24 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text == back_button_or_not[1]:
         await Register.user_start.set()
-        await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+        await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
     elif message.text == back_button_or_not[0]:
-        await message.answer('Напишите что-то о себе чтобы вас взяли в этот проект...')
+        await message.answer('📝Напишите что-то о себе📝\n(Например : Я самый лучший работник, владею 5 языками.)')
         await Register.quesion.set()
 
 
 
 
 
-@dp.message_handler(state=Register.organization, content_types=types.ContentTypes.ANY)
-async def fio_regular(message: types.Message, state: FSMContext):
-    
-    POST_QUESTION(message.chat.id, message.text)
-    await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтобы добавить Вас в группу-обсуждение.\nОбязуемся не делиться Вашими персональными данными.\n(Например : +71234567890)')
-    await Register.quesion.set()
+
 
 
 @dp.message_handler(state=Register.quesion, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
     POST_QUESTION(message.chat.id, message.text)
     POST_QUESTION_DELETE()
-    await message.answer('Спасибо за Ваш вопрос, мы свяжемся с Вами в ближайшее время.\nПо интерисующим вопросам обращаться сюда.\nhttps://t.me/Text_project')
+    await message.answer('🎊 Спасибо за Ваше обращение\n📬 Мы свяжемся с Вами в ближайшее время.\n❓ По интерисующим вопросам обращаться сюда.\nhttps://t.me/Text_project')
     await Register.user_start.set()
-    await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+    await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
 
     

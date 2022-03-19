@@ -12,6 +12,8 @@ topics_for_appeals = ['Кошечки', 'Собачки']
 back_button_or_not = ['Принять участие','Назад']
 help_button = ['Просмотреть предложения']
 admin_1_button = ['Следующее объявление','Убрать пользователя в бан-лист','Назад']
+back_bat = ['Назад']
+back_add = KeyboardButton(back_bat[0])
 
 def add_button(mass):
     buttons = ReplyKeyboardMarkup(True, True, True)

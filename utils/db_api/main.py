@@ -37,8 +37,8 @@ def POST_NEW_SUGGESTION_DESCRIPTION(description1):
     ResultProxy = connection.execute(query)
 
 
-def POST_USER_DATA(id1, username1):
-    query = db.insert(User_Data).values(Id=id1, Username=username1)
+def POST_USER_DATA(id1, username1,):
+    query = db.insert(User_Data).values(Id=id1, Username=username1,BAN = 0)
     ResultProxy = connection.execute(query)
 
 
