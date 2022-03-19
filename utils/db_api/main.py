@@ -170,3 +170,11 @@ def GET_ALL_NULL():
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description[0]
+
+
+def BAN(username1):
+    username1 = username1[1:-1]
+    query = db.update(User_Data).values(BAN=1)
+    query = query.where(User_Data.columns.Username == username1)
+    ResultProxy = connection.execute(query)
+    return'Пользователь '+username1+'добавлен в бан-список'
