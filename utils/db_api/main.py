@@ -116,6 +116,3 @@ def GET_QUESTION(id1):
     mass_description.append(mass_description1)
     mass_description.append(mass_description2)
     return mass_description
-
-
-POST_USERNAME(12, 'sda')
