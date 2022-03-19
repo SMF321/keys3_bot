@@ -114,15 +114,21 @@ def GET_VIEW(class_question1):
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     if len(mass_description) == 0:
-        query = db.update(Question).values(DONE=0)
-        query = query.where(Question.columns.Class_question == class_question1).where(
-            Question.columns.Class_question == class_question1)
-        ResultProxy = connection.execute(query)
-        return 'Все записи по данной теме просмотрены'
+        return ''
     return mass_description[0]
 
 
+def GET_IS_NULL(class_question1):
+    query = db.update(Question).values(DONE=0)
+    query = query.where(Question.columns.Class_question == class_question1)
+    ResultProxy = connection.execute(query)
+    return 'Все записи по данной теме просмотрены'
+
+
 def GET_VIEW1(question, class_question1):
+    if (question == ''):
+        print(GET_IS_NULL(class_question1))
+        return -1
     query = db.update(Question).values(DONE=1)
     query = query.where(Question.columns.Class_question == class_question1).where(
         Question.columns.Question == question)
@@ -137,6 +143,8 @@ def GET_VIEW1(question, class_question1):
 
 
 def GET_VIEW2(id1):
+    if (id1 == -1):
+        return
     a = db.select([User_Data.columns.Username]).where(
         User_Data.columns.Id == id1)
     mass_description2 = []
@@ -154,5 +162,5 @@ def GET_COUNT_MESSAGE(class_question1):
     return mass_description[0]
 
 
-# print(GET_VIEW('Project_1'))
-#print(GET_VIEW2(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1')))
+print(GET_VIEW('Project_1'))
+print(GET_VIEW2(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1')))
