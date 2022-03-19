@@ -154,5 +154,5 @@ def GET_COUNT_MESSAGE(class_question1):
     return mass_description[0]
 
 
-print(GET_VIEW('Project_1'))
-print(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1'))
+# print(GET_VIEW('Project_1'))
+#print(GET_VIEW2(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1')))
