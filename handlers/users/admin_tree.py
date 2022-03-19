@@ -27,9 +27,24 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
     elif message.text == admin_menu_button()[4]:
         await message.answer(f"Введите секретный ключ который хотите добавить:")
         await Register.add_sekret.set()
-    elif message.text == admin_menu_button()[2]:
-        await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_SUGGESTIONS()))
-        await Register.add_sekret.set()
+    elif message.text == admin_menu_button()[5]:
+        await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_UNIQE_SECRET_SUGGESTION()))
+        await Register.del_sekret.set()
+
+
+@dp.message_handler(state=Register.del_sekret, content_types=types.ContentTypes.ANY)
+async def bot_echo_all(message: types.Message, state: FSMContext):
+    if message.text in GET_UNIQE_SECRET_SUGGESTION():
+        DELETE_SECRET_SUGGESTION(message.text)
+        await message.answer('Вы успешно удалили серетную тему')
+        await message.answer(f'Список секретных тем {GET_UNIQE_SECRET_SUGGESTION()}')
+        await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button()))
+        await Register.admin_start.set()
+    else:
+        await message.answer(f'Вы где-то ошиблись при заполнеии')
+        await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button()))
+        await Register.admin_start.set()
+
 
 
 @dp.message_handler(state=Register.add_sekret, content_types=types.ContentTypes.ANY)
