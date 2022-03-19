@@ -258,3 +258,10 @@ def POST_USERNAME_QUESTION_CLASS_QUESTION(username1, question1, class_question1)
     query = db.insert(Visit).values(Username=username1, Question=question1,
                                     Class_question=class_question1)
     ResultProxy = connection.execute(query)
+
+
+def DELETE_SECRET_SUGGESTION(secret_suggestion1):
+    query = db.delete(
+        Secret)
+    query = query.where(Secret.columns.Secret_suggestion == secret_suggestion1)
+    results = connection.execute(query)
