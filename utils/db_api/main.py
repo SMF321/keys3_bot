@@ -5,6 +5,9 @@ connection = engine.connect()
 metadata = db.MetaData()
 
 
+Visit = db.Table('Visit_card', metadata,
+                 autoload=True, autoload_with=engine)
+
 User_Data = db.Table('User_Data', metadata,
                      autoload=True, autoload_with=engine)
 Question = db.Table('Question', metadata, autoload=True, autoload_with=engine)
@@ -231,9 +234,9 @@ def POST_SECRET_KEY(secret_key1):
     ResultProxy = connection.execute(query)
 
 
-def POST_SECRET_SUGGESTION(secret_key1, secret_suggestion1):
+def POST_SECRET_SUGGESTION(secret_suggestion1):
     query = db.update(Secret).values(Secret_suggestion=secret_suggestion1)
-    query = query.where(Secret.columns.Secret_key == secret_key1)
+    query = query.where(Secret.columns.Secret_description == '')
     ResultProxy = connection.execute(query)
 
 
@@ -251,4 +254,26 @@ def GET_UNIQE_CLASS_QUESTION():
     return mass_description
 
 
+<<<<<<< HEAD
 # print(GET_UNIQE_CLASS_QUESTION())
+=======
+def POST_USERNAME_QUESTION_CLASS_QUESTION(username1, question1, class_question1):
+    query = db.insert(Visit).values(Username=username1, Question=question1,
+                                    Class_question=class_question1)
+    ResultProxy = connection.execute(query)
+
+
+def DELETE_SECRET_SUGGESTION(secret_suggestion1):
+    query = db.delete(
+        Secret)
+    query = query.where(Secret.columns.Secret_suggestion == secret_suggestion1)
+    results = connection.execute(query)
+
+
+def GET_UNIQE_SECRET_SUGGESTION():
+    a = db.select([distinct(Secret.columns.Secret_suggestion)])
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
+>>>>>>> 730522f03c2df19a4b058f3377a78239f04f9221
