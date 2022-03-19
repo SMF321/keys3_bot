@@ -178,3 +178,12 @@ def BAN(username1):
     query = query.where(User_Data.columns.Username == username1)
     ResultProxy = connection.execute(query)
     return'Пользователь '+username1+'добавлен в бан-список'
+
+
+def GET_BAN():
+    a = db.select([User_Data.columns.Id]).where(
+        User_Data.columns.BAN == 1)
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
