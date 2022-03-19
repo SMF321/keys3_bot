@@ -234,9 +234,9 @@ def POST_SECRET_KEY(secret_key1):
     ResultProxy = connection.execute(query)
 
 
-def POST_SECRET_SUGGESTION(secret_key1, secret_suggestion1):
+def POST_SECRET_SUGGESTION(secret_suggestion1):
     query = db.update(Secret).values(Secret_suggestion=secret_suggestion1)
-    query = query.where(Secret.columns.Secret_key == secret_key1)
+    query = query.where(Secret.columns.Secret_description == '')
     ResultProxy = connection.execute(query)
 
 
