@@ -38,10 +38,10 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text in GET_SUGGESTIONS():
         kostil = message.text
         print(kostil)
-        await message.answer(f'Имя пользоваетя : @{GET_VIEW2(GET_VIEW1(GET_VIEW(kostil),kostil))}\n'+f'Текст обращения :\n{GET_VIEW(kostil)}', reply_markup=add_button(admin_1_button))
+        await message.answer(f'Имя пользоваетя : @{GET_VIEW2(GET_VIEW1(GET_VIEW(kostil),kostil),kostil,GET_VIEW(kostil))}\n'+f'Текст обращения :\n{GET_VIEW(kostil)}', reply_markup=add_button(admin_1_button))
     if message.text == 'Следующее объявление':
         print(kostil)
-        await message.answer(f'Имя пользоваетя : @{GET_VIEW2(GET_VIEW1(GET_VIEW(kostil),kostil))}\n'+f'Текст обращения :\n{GET_VIEW(kostil)}', reply_markup=add_button(admin_1_button))
+        await message.answer(f'Имя пользоваетя : @{GET_VIEW2(GET_VIEW1(GET_VIEW(kostil),kostil),kostil,GET_VIEW(kostil))}\n'+f'Текст обращения :\n{GET_VIEW(kostil)}', reply_markup=add_button(admin_1_button))
     elif message.text == 'Назад':
         await Register.admin_start.set()
         await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
