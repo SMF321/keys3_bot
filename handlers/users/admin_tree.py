@@ -25,7 +25,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await message.answer(f"Количество новых сообщений :", reply_markup=add_button_cont(GET_SUGGESTIONS()))
         await Register.count.set()
     elif message.text == admin_menu_button()[4]:
-        await message.answer(f"Введите название темы по которую хотите добавить:")
+        await message.answer(f"Введите секретный ключ который хотите добавить:")
         await Register.add_sekret.set()
     elif message.text == admin_menu_button()[2]:
         await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_SUGGESTIONS()))
@@ -34,25 +34,21 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.add_sekret, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    POST_SECRET_SUGGESTION(message.text)
-    await message.answer(f"Введите описание для данной секретной темы:")
-    await Register.add_sekret1.set()
-
-@dp.message_handler(state=Register.add_sekret1, content_types=types.ContentTypes.ANY)
-async def bot_echo_all(message: types.Message, state: FSMContext):
-    POST_SECRET_DESCRIPTION(message.text)
-    await message.answer(f"Введите описание для данной секретной темы:")
+    POST_SECRET_KEY(message.text)
+    await message.answer(f"Введите название для данной секретной темы:")
     await Register.add_sekret2.set()
+
+
 
 @dp.message_handler(state=Register.add_sekret2, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    POST_SECRET_DESCRIPTION(message.text)
-    await message.answer(f"Введите секретный ключ для данной секретной темы:")
+    POST_SECRET_SUGGESTION(message.text)
+    await message.answer(f"Введите описание для данной секретной темы:")
     await Register.add_sekret3.set()
 
 @dp.message_handler(state=Register.add_sekret3, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    POST_SECRET_KEY(message.text)
+    POST_SECRET_DESCRIPTION(message.text)
     await message.answer(f"Секретная тема успешно добавлена")
     await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button()))
     await Register.admin_start.set()
