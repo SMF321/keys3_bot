@@ -52,8 +52,8 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await Register.user_start.set()
         await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
     elif message.text == back_button_or_not[0]:
-        await message.answer('Представьтесь:\n(Например : Иванов Иван Иванович)')
-        await Register.fio.set()
+        await message.answer('Напишите что-то о себе чтобы вас взяли в этот проект...')
+        await Register.quesion.set()
 
 
 
@@ -68,7 +68,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
                 POST_USER_DATA(message.chat.id,message.text,message.chat.username)
             except:
                 UPDATE__USER_DATA_USER(message.chat.id,message.text,message.chat.username)
-            await message.answer('Напишите что-то о себе чтоб вас взли в этот проект...')
+            await message.answer('Напишите что-то о себе чтобы вас взяли в этот проект...')
             await Register.organization.set()
             # try:
                 # POST_USER(message.chat.id, message.text)
@@ -85,22 +85,16 @@ async def fio_regular(message: types.Message, state: FSMContext):
 async def fio_regular(message: types.Message, state: FSMContext):
     
     POST_QUESTION(message.chat.id, message.text)
-    await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добавить Вас в группу-обсцждение.\nОбязуемся не делиться Вашими персональными данными.\n(Например : +71234567890)')
+    await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтобы добавить Вас в группу-обсуждение.\nОбязуемся не делиться Вашими персональными данными.\n(Например : +71234567890)')
     await Register.quesion.set()
 
 
 @dp.message_handler(state=Register.quesion, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    match1 = re.search(
-        r'(\+7|8)\d{10}$', rf'{message.text}')
-    try:
-        if match1.group(0):
-            POST_PHONE(message.chat.id, message.text)
-            POST_QUESTION_DELETE()
-            await message.answer('Спасибо за Ваш вопрос, мы свяжемся с Вами в ближайшее время.\nПо интерисующим вопросам обращаться сюда.\nhttps://t.me/Text_project')
-            await Register.user_start.set()
-            await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
-    except:
-        await message.answer('Оставьте нам свой номер телефона.\nЭто необходимо чтоб добавить Вас в группу-обсуждение.\nОбязуемся не делиться Вашими персональными данными.\n(Например : +71234567890)')
-        await Register.quesion.set()
+    
+    POST_QUESTION_DELETE()
+    await message.answer('Спасибо за Ваш вопрос, мы свяжемся с Вами в ближайшее время.\nПо интерисующим вопросам обращаться сюда.\nhttps://t.me/Text_project')
+    await Register.user_start.set()
+    await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+
     
