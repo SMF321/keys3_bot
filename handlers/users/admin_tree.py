@@ -12,8 +12,7 @@ from utils.db_api.main import *
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text == admin_menu_button[0]:
         await message.answer(f"Выберите тему по которой хотите просмотреть обращения", reply_markup=add_button(GET_SUGGESTIONS()))
-        # TODO сделаю потом, но тут kolya
-        await Register.admin_start.set()
+        await Register.viewing_and_editing_requests.set()
         await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
     elif message.text == admin_menu_button[1]:
         await message.answer(f"Введите название темы по которую хотите добавить:")
@@ -36,7 +35,8 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 async def bot_echo_all(message: types.Message, state: FSMContext):
     POST_NEW_SUGGESTION_DESCRIPTION(message.text)
     await message.answer(f"Изменения приняты:")
-    await message.answer(GET_SUGGESTIONS())
+    for i in GET_SUGGESTIONS():
+        await message.answer('✔️ ' + f'{i}')
     await Register.admin_start.set()
     await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
 
@@ -45,5 +45,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 async def bot_echo_all(message: types.Message, state: FSMContext):
     DELETE_SUGGESTION(message.text)
     await message.answer(f"Изменения приняты:")
-    await message.answer(GET_SUGGESTIONS())
-    await Register.created_chat1.set()
+    for i in GET_SUGGESTIONS():
+        await message.answer('❌ '+f'{i}')
+    await Register.admin_start.set()
+    await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
