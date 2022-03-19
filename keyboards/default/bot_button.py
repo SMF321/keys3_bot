@@ -2,11 +2,12 @@ from turtle import back
 from aiogram.types import ReplyKeyboardRemove, \
     ReplyKeyboardMarkup, KeyboardButton, \
     InlineKeyboardMarkup, InlineKeyboardButton
+from utils.db_api.main import *
 
 user_menu_button = ['Информация о проекте',
                     'Действующие предложения', 'История моих обращений']
 admin_menu_button = ['Просмотр обращений по темам/Удалить обращение/Добавить в бан-лист',
-                     'Добавить тему обращения', 'Удалилить тему обращения','Просмотр количества новых сообщений']
+                     'Добавить тему обращения', 'Удалилить тему обращения',f'Просмотр количества новых сообщений : {GET_ALL()}']
 topics_for_appeals = ['Кошечки', 'Собачки']
 back_button_or_not = ['Принять участие','Назад']
 help_button = ['Просмотреть предложения']
@@ -16,6 +17,14 @@ def add_button(mass):
     buttons = ReplyKeyboardMarkup(True, True, True)
     for i in range(len(mass)):
         keyboad = KeyboardButton(mass[i])
+        buttons.add(keyboad)
+    return buttons
+
+
+def add_button_cont(mass):
+    buttons = ReplyKeyboardMarkup(True, True, True)
+    for i in range(len(mass)):
+        keyboad = KeyboardButton(f'{mass[i]} : {GET_COUNT_MESSAGE(mass[i])}')
         buttons.add(keyboad)
     return buttons
 
