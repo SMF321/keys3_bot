@@ -254,9 +254,7 @@ def GET_UNIQE_CLASS_QUESTION():
     return mass_description
 
 
-<<<<<<< HEAD
-# print(GET_UNIQE_CLASS_QUESTION())
-=======
+
 def POST_USERNAME_QUESTION_CLASS_QUESTION(username1, question1, class_question1):
     query = db.insert(Visit).values(Username=username1, Question=question1,
                                     Class_question=class_question1)
@@ -276,4 +274,4 @@ def GET_UNIQE_SECRET_SUGGESTION():
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description
->>>>>>> 730522f03c2df19a4b058f3377a78239f04f9221
+
