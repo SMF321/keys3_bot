@@ -129,16 +129,16 @@ def GET_VIEW1(question, class_question1):
     if (question == ''):
         print(GET_IS_NULL(class_question1))
         return -1
-    query = db.update(Question).values(DONE=1)
-    query = query.where(Question.columns.Class_question == class_question1).where(
-        Question.columns.Question == question)
-    ResultProxy = connection.execute(query)
     a = db.select([Question.columns.Id]).where(
         Question.columns.Question == question).where(
         Question.columns.Class_question == class_question1)
     mass_description1 = []
     for row in connection.execute(a).fetchall():
         mass_description1.append(row[0])
+    query = db.update(Question).values(DONE=1)
+    query = query.where(Question.columns.Class_question == class_question1).where(
+        Question.columns.Question == question)
+    ResultProxy = connection.execute(query)
     return mass_description1[0]
 
 
