@@ -6,7 +6,7 @@ connection = engine.connect()
 metadata = db.MetaData()
 
 
-Users = db.Table('Users', metadata, autoload=True, autoload_with=engine)
+# Users = db.Table('Users', metadata, autoload=True, autoload_with=engine)
 User_Data = db.Table('User_Data', metadata,
                      autoload=True, autoload_with=engine)
 Question = db.Table('Question', metadata, autoload=True, autoload_with=engine)
@@ -14,9 +14,9 @@ Suggest = db.Table('Current_Suggestion', metadata,
                    autoload=True, autoload_with=engine)
 
 
-def POST_USER(id1, FIO1):
-    query = db.insert(Users).values(Id=id1, Username='')
-    ResultProxy = connection.execute(query)
+# def POST_USER(id1):
+#     query = db.insert(Users).values(Id=id1, Username='')
+#     ResultProxy = connection.execute(query)
 
 
 def POST_TEST(id1):
@@ -31,15 +31,15 @@ def POST_NEW_SUGGESTIONS(id1, suggestion1, description):
     ResultProxy = connection.execute(query)
 
 
-def POST_USER_DATA(id1, fio1, username1):
+def POST_USER_DATA(id1, username1):
     query = db.insert(User_Data).values(Id=id1, Username=username1)
     ResultProxy = connection.execute(query)
 
 
-def POST_USERNAME(id1, username1):
-    query = db.update(Users).values(Username=username1)
-    query = query.where(Users.columns.Id == id1)
-    results = connection.execute(query)
+# def POST_USERNAME(id1, username1):
+#     query = db.update(Users).values(Username=username1)
+#     query = query.where(Users.columns.Id == id1)
+#     results = connection.execute(query)
 
 
 def POST_QUESTION(id1, question1):
@@ -61,9 +61,9 @@ def POST_CLASS_QUESTION(id1, class_question1):
     ResultProxy = connection.execute(query)
 
 
-def GET_QUESTION(class_question1):
-    return db.select([Question.columns.Class_question, Question.columns.Question, Users.columns.Username, Users.columns.FIO, Question.columns.datetime]).where(
-        Question.columns.Class_question == class_question1).where(Users.columns.Id == Question.columns.Id)
+# def GET_QUESTION(class_question1):
+#     return db.select([Question.columns.Class_question, Question.columns.Question, Users.columns.Username, Users.columns.FIO, Question.columns.datetime]).where(
+#         Question.columns.Class_question == class_question1).where(Users.columns.Id == Question.columns.Id)
 
 
 def GET_SUGGESTIONS():
@@ -89,10 +89,10 @@ def UPDATE__USER_DATA_USER(id1,  username1):
 
     query = query.where(User_Data.columns.Id == id1)
     ResultProxy = connection.execute(query)
-    query = db.update(Users).values(Username=username1
-                                    )
-    query = query.where(Users.columns.Id == id1)
-    ResultProxy = connection.execute(query)
+    # query = db.update(Users).values(Username=username1
+    #                                 )
+    # query = query.where(Users.columns.Id == id1)
+    # ResultProxy = connection.execute(query)
 
 
 def GET_QUESTION(id1):
