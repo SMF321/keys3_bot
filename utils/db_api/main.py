@@ -1,5 +1,5 @@
 import sqlalchemy as db
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, distinct
 engine = db.create_engine(f'sqlite:///utils\db_api\database.sqlite')
 connection = engine.connect()
 metadata = db.MetaData()
@@ -241,3 +241,11 @@ def POST_SECRET_DESCRIPTION(secret_description1):
     query = db.update(Secret).values(Secret_description=secret_description1)
     query = query.where(Secret.columns.Secret_description == '')
     ResultProxy = connection.execute(query)
+
+
+def GET_UNIQE_CLASS_QUESTION():
+    a = db.select(db.distinct[Question.columns.Class_question])
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
