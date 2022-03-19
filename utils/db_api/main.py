@@ -5,13 +5,6 @@ connection = engine.connect()
 metadata = db.MetaData()
 
 
-mp = db.Table('Visit_card', metadata,
-              db.Column('Username',  db.String(), primary_key=True),
-              db.Column('Question', db.String(), nullable=False),
-              db.Column('Class_question', db.String(), nullable=False)
-              )
-metadata.create_all(engine)
-
 Visit = db.Table('Visit_card', metadata,
                  autoload=True, autoload_with=engine)
 
