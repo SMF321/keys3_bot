@@ -8,6 +8,7 @@ class Register (StatesGroup):  # создаю класс где буду хра�
     created_chat1 = State()
     deleted = State()
     count = State()
+    ban = State()
 
 
 ##############################
