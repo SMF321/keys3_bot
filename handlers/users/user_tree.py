@@ -91,7 +91,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.quesion, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    
+    POST_QUESTION(message.chat.id, message.text)
     POST_QUESTION_DELETE()
     await message.answer('Спасибо за Ваш вопрос, мы свяжемся с Вами в ближайшее время.\nПо интерисующим вопросам обращаться сюда.\nhttps://t.me/Text_project')
     await Register.user_start.set()
