@@ -135,3 +135,15 @@ def GET_VIEW(class_question1):
     for row in connection.execute(a).fetchall():
         mass_description2.append(row[0])
     return mass_description[0], mass_description2[0]
+<<<<<<< HEAD
+=======
+
+
+def GET_COUNT_MESSAGE(class_question1):
+    a = db.select([db.func.count(Question.columns.DONE)]).where(
+        Question.columns.DONE == 0).where(Question.columns.Class_question == class_question1)
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description[0]
+>>>>>>> 03b9cc907842ee822adc2c88e109d23969d7486e
