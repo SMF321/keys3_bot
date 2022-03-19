@@ -39,8 +39,8 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text in GET_SUGGESTIONS():
         POST_TEST(message.chat.id)
         POST_CLASS_QUESTION(message.chat.id,message.text)
-        await message.answer(GET_DESCRIPTION(message.text),reply_markup=add_button(back_button_or_not))
-        await Register.info_about_concrete_work.set()
+        await message.answer('Напишите что-то о себе чтобы вас взяли в этот проект...')
+        await Register.quesion.set()
     else:
         await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()))
         await Register.info_about_work.set()

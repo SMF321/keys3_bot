@@ -22,6 +22,9 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_SUGGESTIONS()))
         await Register.deleted.set()
 
+@dp.message_handler(state=Register.viewing_and_editing_requests, content_types=types.ContentTypes.ANY)
+async def bot_echo_all(message: types.Message, state: FSMContext):
+    await message.answer(GET_VIEW())
 
 @dp.message_handler(state=Register.created_chat, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
