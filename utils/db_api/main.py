@@ -236,7 +236,7 @@ def POST_SECRET_KEY(secret_key1):
 
 def POST_SECRET_SUGGESTION(secret_suggestion1):
     query = db.update(Secret).values(Secret_suggestion=secret_suggestion1)
-    query = query.where(Secret.columns.Secret_description == '')
+    query = query.where(Secret.columns.Secret_suggestion == '')
     ResultProxy = connection.execute(query)
 
 
@@ -273,6 +273,3 @@ def GET_UNIQE_SECRET_SUGGESTION():
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description
-
-
-print(POST_SECRET_KEY('131211'))
