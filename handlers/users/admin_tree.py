@@ -20,14 +20,13 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await Register.created_chat.set()
         # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
     elif message.text == admin_menu_button[2]:
-        await message.answer(f"тут что-то будет")
-        await Register.admin_start.set()
-        await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
+        await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_SUGGESTIONS()))
+        await Register.deleted.set()
 
 
 @dp.message_handler(state=Register.created_chat, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    await message.answer(f"ВВедите описание данной темы")
+    await message.answer(f"Введите описание данной темы")
     POST_NEW_SUGGESTIONS1(message.text)
     await Register.created_chat1.set()
 
@@ -35,5 +34,16 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.created_chat1, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
+    POST_NEW_SUGGESTION_DESCRIPTION(message.text)
+    await message.answer(f"Изменения приняты:")
+    await message.answer(GET_SUGGESTIONS())
+    await Register.admin_start.set()
+    await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
+
+
+@dp.message_handler(state=Register.deleted, content_types=types.ContentTypes.ANY)
+async def bot_echo_all(message: types.Message, state: FSMContext):
     POST_NEW_SUGGESTIONS1(message.text)
+    await message.answer(f"Изменения приняты:")
+    await message.answer(GET_SUGGESTIONS())
     await Register.created_chat1.set()
