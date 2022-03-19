@@ -53,8 +53,7 @@ def POST_USERNAME(id1, username1):
 def POST_QUESTION(id1, question1):
     query = db.update(Question).values(Question=question1)
 
-    query = query.where(Question.columns.Id == id1).where(
-        Question.columns.Question == '')
+    query = query.where(Question.columns.Id == id1)
     results = connection.execute(query)
 
 
