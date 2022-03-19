@@ -6,6 +6,7 @@ class Register (StatesGroup):  # создаю класс где буду хра�
     viewing_and_editing_requests = State()
     created_chat = State()
     created_chat1 = State()
+    deleted = State()
 
 
 ##############################
