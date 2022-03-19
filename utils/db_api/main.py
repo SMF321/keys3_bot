@@ -98,3 +98,10 @@ def GET_QUESTION(id1):
     mass_description.append(mass_description1)
     mass_description.append(mass_description2)
     return mass_description
+
+
+def DELETE_SUGGESTION(suggestion1):
+    query = db.delete(Suggest.columns.Id,
+                      Suggest.columns.Suggestion, Suggest.columns.Description)
+    query = query.where(Suggest.columns.Suggestion == suggestion1)
+    results = connection.execute(query)
