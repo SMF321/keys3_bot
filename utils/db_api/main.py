@@ -24,6 +24,12 @@ def POST_NEW_SUGGESTIONS(id1, suggestion1, description):
     ResultProxy = connection.execute(query)
 
 
+def POST_NEW_SUGGESTIONS1(suggestion1):
+    query = db.insert(Suggest).values(Suggestion=suggestion1,
+                                      Description='')
+    ResultProxy = connection.execute(query)
+
+
 def POST_USER_DATA(id1, username1):
     query = db.insert(User_Data).values(Id=id1, Username=username1)
     ResultProxy = connection.execute(query)
