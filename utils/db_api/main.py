@@ -114,8 +114,8 @@ def GET_VIEW(class_question1):
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     if len(mass_description) == 0:
-        return ''
-    return mass_description[0]
+        return 'Все записи по данной теме просмотрены'
+    return mass_description[0], GET_VIEW1(mass_description[0], class_question1)
 
 
 def GET_IS_NULL(class_question1):
@@ -135,7 +135,7 @@ def GET_VIEW1(question, class_question1):
     mass_description1 = []
     for row in connection.execute(a).fetchall():
         mass_description1.append(row[0])
-    return mass_description1[0]
+    return GET_VIEW2(mass_description1[0], class_question1, question)
 
 
 def GET_VIEW2(id1, class_question1, question):
@@ -163,4 +163,4 @@ def GET_COUNT_MESSAGE(class_question1):
 
 
 print(GET_VIEW('Project_1'))
-print(GET_VIEW2(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1')))
+#print(GET_VIEW2(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1')),class_question1,GET_VIEW('Project_1'))
