@@ -27,4 +27,13 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.created_chat, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    POST_NEW_SUGGESTIONS()
+    await message.answer(f"ВВедите описание данной темы")
+    POST_NEW_SUGGESTIONS1(message.text)
+    await Register.created_chat1.set()
+
+
+
+@dp.message_handler(state=Register.created_chat1, content_types=types.ContentTypes.ANY)
+async def bot_echo_all(message: types.Message, state: FSMContext):
+    POST_NEW_SUGGESTIONS1(message.text)
+    await Register.created_chat1.set()
