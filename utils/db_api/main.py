@@ -133,8 +133,12 @@ def GET_VIEW1(question, class_question1):
     mass_description1 = []
     for row in connection.execute(a).fetchall():
         mass_description1.append(row[0])
+    return mass_description1[0]
+
+
+def GET_VIEW2(id1):
     a = db.select([User_Data.columns.Username]).where(
-        User_Data.columns.Id == mass_description1[0])
+        User_Data.columns.Id == id1)
     mass_description2 = []
     for row in connection.execute(a).fetchall():
         mass_description2.append(row[0])
@@ -148,3 +152,7 @@ def GET_COUNT_MESSAGE(class_question1):
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description[0]
+
+
+# print(GET_VIEW('Project_1'))
+#print(GET_VIEW2(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1')))
