@@ -208,6 +208,15 @@ def GET_SECRET_SUGGESTION(secret_key1):
     return mass_description
 
 
+def GET_SECRET_DESCRIPTION(secret_suggestion1):
+    a = db.select([Secret.columns.Secret_description]).where(
+        Secret.columns.Secret_suggestion == secret_suggestion1)
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description[0]
+
+
 def POST_SECRET_KEY(secret_key1):
     query = db.insert(Secret).values(Secret_key=secret_key1, Secret_suggestion='',
                                      Class_descriptor='')
