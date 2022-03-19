@@ -59,10 +59,9 @@ def POST_QUESTION(id1, question1):
 
 
 def POST_CLASS_QUESTION(id1, class_question1):
-    query = db.update(Question).values(Class_question=class_question1)
-    query = query.where(Question.columns.Id == id1)
-
-    results = connection.execute(query)
+    query = db.insert(Question).values(Id=id1, Question='',
+                                       Class_question=class_question1)
+    ResultProxy = connection.execute(query)
 
 
 def GET_QUESTION(class_question1):
