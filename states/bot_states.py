@@ -23,3 +23,5 @@ class Register (StatesGroup):  # создаю класс где буду хра�
     organization = State()
     mobile_phone = State()
     quesion = State()
+    sekret = State()
+    print_sekret_topics = State()
