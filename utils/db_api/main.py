@@ -244,8 +244,11 @@ def POST_SECRET_DESCRIPTION(secret_description1):
 
 
 def GET_UNIQE_CLASS_QUESTION():
-    a = db.select(db.distinct[Question.columns.Class_question])
+    a = db.select([distinct(Question.columns.Class_question)])
     mass_description = []
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description
+
+
+print(GET_UNIQE_CLASS_QUESTION())
