@@ -265,3 +265,11 @@ def DELETE_SECRET_SUGGESTION(secret_suggestion1):
         Secret)
     query = query.where(Secret.columns.Secret_suggestion == secret_suggestion1)
     results = connection.execute(query)
+
+
+def GET_UNIQE_SECRET_SUGGESTION():
+    a = db.select([distinct(Secret.columns.Secret_suggestion)])
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
