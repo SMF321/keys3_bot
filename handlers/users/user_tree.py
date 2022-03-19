@@ -22,7 +22,8 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
     elif message.text == user_menu_button[2]:
         await message.answer(f"Ваша история обращений:")
-        await message.answer(f"Я Junior WebDeveloper")
+        for i in range(len(GET_QUESTION(message.chat.id)[0])):
+            await message.answer(f"Тема обращения : {(GET_QUESTION(message.chat.id)[1][i])}\n" + f"Текст обращения : {(GET_QUESTION(message.chat.id)[0][i])}")
         await Register.user_start.set()
         await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
 
