@@ -57,7 +57,7 @@ def POST_QUESTION(id1, question1):
     results = connection.execute(query)
 
 
-def POST_QUESTION_DELETE(id1):
+def POST_QUESTION_DELETE():
     query = db.delete(Question)
     query = query.where(Question.columns.Class_question == '')
     results = connection.execute(query)
