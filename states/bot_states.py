@@ -9,6 +9,10 @@ class Register (StatesGroup):  # создаю класс где буду хра�
     deleted = State()
     count = State()
     ban = State()
+    add_sekret = State()
+    add_sekret1 = State()
+    add_sekret2 = State()
+    add_sekret3 = State()
 
 
 ##############################

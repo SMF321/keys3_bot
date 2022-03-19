@@ -251,4 +251,4 @@ def GET_UNIQE_CLASS_QUESTION():
     return mass_description
 
 
-print(GET_UNIQE_CLASS_QUESTION())
+# print(GET_UNIQE_CLASS_QUESTION())

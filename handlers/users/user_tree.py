@@ -5,7 +5,7 @@ import re
 from loader import dp
 
 from states.bot_states import Register
-from keyboards.default.bot_button import user_menu_button, add_button, help_button,back_button_or_not, back_add
+from keyboards.default.bot_button import user_menu_button, add_button, help_button, back_button_or_not, back_add
 from utils.db_api.main import *
 #import GET_SUGGESTIONS, GET_DESCRIPTION,POST_USER_DATA, POST_USER,UPDATE__USER_DATA_USER,POST_QUESTION,POST_CLASS_QUESTION,POST_PHONE
 
@@ -20,7 +20,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
             await Register.user_start.set()
             await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
         elif message.text == user_menu_button[1]:
-            await message.answer(f"❗️ Перед выбором тем обращений внимательно ознакомьтесь с содержанием требований❗️",reply_markup=add_button(help_button))
+            await message.answer(f"❗️ Перед выбором тем обращений внимательно ознакомьтесь с содержанием требований❗️", reply_markup=add_button(help_button))
             await Register.project_list.set()
             # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
         elif message.text == user_menu_button[2]:
@@ -33,6 +33,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
             await message.answer(f"🔑 Введите секретный ключ 🔑")
             await Register.sekret.set()
 
+
 @dp.message_handler(state=Register.sekret, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
     if message.text in GET_SECRET_KEY():
@@ -42,11 +43,12 @@ async def fio_regular(message: types.Message, state: FSMContext):
         await Register.user_start.set()
         await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
 
+
 @dp.message_handler(state=Register.print_sekret_topics, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
     if message.text in GET_SECRET_SUGGESTION_ALL():
         POST_TEST(message.chat.id)
-        POST_CLASS_QUESTION(message.chat.id,message.text)
+        POST_CLASS_QUESTION(message.chat.id, message.text)
         await message.answer(GET_SECRET_DESCRIPTION(message.text))
         await message.answer('📝Напишите что-то о себе📝\n(Например : Я самый лучший работник, владею 5 языками.)')
         await Register.quesion.set()
@@ -72,7 +74,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text in GET_SUGGESTIONS():
         POST_TEST(message.chat.id)
-        POST_CLASS_QUESTION(message.chat.id,message.text)
+        POST_CLASS_QUESTION(message.chat.id, message.text)
         await message.answer(GET_DESCRIPTION(message.text))
         await message.answer('📝Напишите что-то о себе📝\n(Например : Я самый лучший работник, владею 5 языками.)')
         await Register.quesion.set()
@@ -82,7 +84,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
     else:
         await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()).add(back_add))
         await Register.info_about_work.set()
-    
+
 
 @dp.message_handler(state=Register.info_about_concrete_work, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
@@ -94,12 +96,6 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await Register.quesion.set()
 
 
-
-
-
-
-
-
 @dp.message_handler(state=Register.quesion, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
     POST_QUESTION(message.chat.id, message.text)
@@ -107,5 +103,3 @@ async def fio_regular(message: types.Message, state: FSMContext):
     await message.answer('🎊 Спасибо за Ваше обращение\n📬 Мы свяжемся с Вами в ближайшее время.\n❓ По интерисующим вопросам обращаться сюда.\nhttps://t.me/Text_project')
     await Register.user_start.set()
     await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
-
-    

@@ -15,7 +15,7 @@ async def bot_start(message: types.Message, state: FSMContext):
         await message.answer(f"Привет админ, {message.from_user.full_name}!")
         print(message.chat.id)
         await Register.admin_start.set()
-        await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
+        await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button()))
     else:
         await message.answer(f"🤖 Привет, {message.from_user.full_name} 🤖")
         print(message.chat.id)
