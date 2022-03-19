@@ -19,7 +19,8 @@ def POST_USER(id1, FIO1):
                                     FIO=FIO1, Phone='')
     ResultProxy = connection.execute(query)
 
-def POST_TEST(id1):  
+
+def POST_TEST(id1):
     query = db.insert(Question).values(Id=id1, Question='',
                                        Class_question='')
     ResultProxy = connection.execute(query)
@@ -97,3 +98,17 @@ def UPDATE__USER_DATA_USER(id1, fio1, username1):
                                     )
     query = query.where(Users.columns.Id == id1)
     ResultProxy = connection.execute(query)
+
+
+def GET_QUESTION(id1):
+    a = db.select([Question.columns.Question, Question.columns.Class_question]).where(
+        Question.columns.Id == id1)
+    mass_description = []
+    mass_description1 = []
+    mass_description2 = []
+    for row in connection.execute(a).fetchall():
+        mass_description1.append(row[0])
+        mass_description2.append(row[1])
+    mass_description.append(mass_description1)
+    mass_description.append(mass_description2)
+    return mass_description
