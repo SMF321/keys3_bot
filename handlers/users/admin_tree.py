@@ -43,7 +43,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.deleted, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    POST_NEW_SUGGESTIONS1(message.text)
+    DELETE_SUGGESTION(message.text)
     await message.answer(f"Изменения приняты:")
     await message.answer(GET_SUGGESTIONS())
     await Register.created_chat1.set()
