@@ -206,3 +206,21 @@ def GET_SECRET_SUGGESTION(secret_key1):
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description
+
+
+def GET_SECRET_KEY(secret_key1):
+    query = db.insert(Secret).values(Secret_key=secret_key1, Secret_suggestion='',
+                                     Class_descriptor='')
+    ResultProxy = connection.execute(query)
+
+
+def POST_SECRET_SUGGESTION(secret_key1, secret_suggestion1):
+    query = db.update(Secret).values(Secret_suggestion=secret_suggestion1)
+    query = query.where(Secret.columns.Secret_key == secret_key1)
+    ResultProxy = connection.execute(query)
+
+
+def POST_SECRET_DESCRIPTION(secret_description1):
+    query = db.update(Secret).values(Secret_description=secret_description1)
+    query = query.where(Secret.columns.Secret_description == '')
+    ResultProxy = connection.execute(query)
