@@ -15,8 +15,7 @@ Suggest = db.Table('Current_Suggestion', metadata,
 
 
 def POST_USER(id1, FIO1):
-    query = db.insert(Users).values(Id=id1, Username='',
-                                    FIO=FIO1, Phone='')
+    query = db.insert(Users).values(Id=id1, Username='')
     ResultProxy = connection.execute(query)
 
 
@@ -33,15 +32,8 @@ def POST_NEW_SUGGESTIONS(id1, suggestion1, description):
 
 
 def POST_USER_DATA(id1, fio1, username1):
-    query = db.insert(User_Data).values(Id=id1, FIO=fio1,
-                                        Username=username1)
+    query = db.insert(User_Data).values(Id=id1, Username=username1)
     ResultProxy = connection.execute(query)
-
-
-def POST_PHONE(id1, phone1):
-    query = db.update(Users).values(Phone=phone1)
-    query = query.where(Users.columns.Id == id1)
-    results = connection.execute(query)
 
 
 def POST_USERNAME(id1, username1):
@@ -91,14 +83,13 @@ def GET_DESCRIPTION(suggestion1):
     return mass_description[0]
 
 
-def UPDATE__USER_DATA_USER(id1, fio1, username1):
-    query = db.update(User_Data).values(FIO=fio1,
-                                        Username=username1)
+def UPDATE__USER_DATA_USER(id1,  username1):
+    query = db.update(User_Data).values(
+        Username=username1)
 
     query = query.where(User_Data.columns.Id == id1)
     ResultProxy = connection.execute(query)
-    query = db.update(Users).values(Username=username1,
-                                    FIO=fio1, Phone=''
+    query = db.update(Users).values(Username=username1
                                     )
     query = query.where(Users.columns.Id == id1)
     ResultProxy = connection.execute(query)
@@ -116,6 +107,3 @@ def GET_QUESTION(id1):
     mass_description.append(mass_description1)
     mass_description.append(mass_description2)
     return mass_description
-
-
-POST_USERNAME(12, 'sda')
