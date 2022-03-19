@@ -37,7 +37,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 async def fio_regular(message: types.Message, state: FSMContext):
     if message.text in GET_SECRET_KEY():
         await message.answer('☑️ Вы успешно авторизованы \nПросмотрите список приватных предложений:', reply_markup=add_button(GET_SEKRET_SUGGESTIONS(message.text)).add(back_add))
-        
+        await Register.print_sekret_topics.set()
 
 
 
