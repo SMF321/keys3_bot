@@ -16,7 +16,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await message.answer('❗️Вы были забанены админмистратором❗️')
     else:
         if message.text == user_menu_button[0]:
-            await message.answer(f"Данный проект предназначен для следующих целей:")
+            await message.answer(f"Данный проект предназначен для следующих целей:\n☝️ Набрать команду востребованных специалистов для решения различных задач.\n📲 Для удобного использования как корреспонденами так и менеджерами.\n☎️ Дает возможность легко связывать менеджеров с корреспонденами.")
             await Register.user_start.set()
             await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
         elif message.text == user_menu_button[1]:
@@ -29,6 +29,16 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
                 await message.answer(f"Тема обращения : {(GET_QUESTION(message.chat.id)[1][i])}\n" + f"Текст обращения : {(GET_QUESTION(message.chat.id)[0][i])}")
             await Register.user_start.set()
             await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
+        elif message.text == user_menu_button[3]:
+            await message.answer(f"🔑 Введите секретный ключ 🔑")
+            await Register.sekret.set()
+
+@dp.message_handler(state=Register.sekret, content_types=types.ContentTypes.ANY)
+async def fio_regular(message: types.Message, state: FSMContext):
+    if message.text in GET_SECRET_KEY():
+        await message.answer('☑️ Вы успешно авторизованы \nПросмотрите список приватных предложений:', reply_markup=add_button(GET_SEKRET_SUGGESTIONS(message.text)).add(back_add))
+        
+
 
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
