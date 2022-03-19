@@ -177,7 +177,7 @@ def BAN(username1):
     query = db.update(User_Data).values(BAN=1)
     query = query.where(User_Data.columns.Username == username1)
     ResultProxy = connection.execute(query)
-    return'Пользователь '+username1+'добавлен в бан-список'
+    return'Пользователь '+username1+' добавлен в бан-список'
 
 
 def GET_BAN():
