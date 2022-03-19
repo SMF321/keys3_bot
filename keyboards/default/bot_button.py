@@ -10,7 +10,7 @@ admin_menu_button = ['Просмотр обращений по темам/Уда
 topics_for_appeals = ['Кошечки', 'Собачки']
 back_button_or_not = ['Принять участие','Назад']
 help_button = ['Просмотреть предложения']
-
+admin_1_button = ['Следующее объявление','Убрать пользователя в бан-лист','Назад']
 
 def add_button(mass):
     buttons = ReplyKeyboardMarkup(True, True, True)
