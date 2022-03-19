@@ -27,7 +27,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.count, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    if message.text == f'Просмотр количества новых сообщений : {GET_ALL()}':
+    if message.text == f'Просмотр количества новых сообщений : {GET_ALL_NULL()}':
         await message.answer(f'Количество новых сообщений : {GET_COUNT_MESSAGE(message.text)}') 
         await Register.admin_start.set()
     else:
@@ -60,10 +60,15 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await Register.admin_start.set()
         await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
     elif message.text == 'Убрать пользователя в бан-лист':
-        # TODO
-        await message.answer('Пользователь забанен!!!')
-        await Register.admin_start.set()
-        await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
+        await message.answer('Укажите username пользоватеся : \n(Напимер : @test)')
+        await Register.ban.set()
+
+
+@dp.message_handler(state=Register.ban, content_types=types.ContentTypes.ANY)
+async def bot_echo_all(message: types.Message, state: FSMContext):
+    await message.answer(BAN(message.text) )
+    await Register.admin_start.set()
+    await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
 
 @dp.message_handler(state=Register.created_chat, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):

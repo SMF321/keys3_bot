@@ -12,20 +12,23 @@ from utils.db_api.main import *
 
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    if message.text == user_menu_button[0]:
-        await message.answer(f"Данный проект предназначен для следующих целей:")
-        await Register.user_start.set()
-        await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
-    elif message.text == user_menu_button[1]:
-        await message.answer(f"Перед выбором тем обращений внимательно ознакомьтесь с содержанием требований",reply_markup=add_button(help_button))
-        await Register.project_list.set()
-        # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
-    elif message.text == user_menu_button[2]:
-        await message.answer(f"Ваша история обращений:")
-        for i in range(len(GET_QUESTION(message.chat.id)[0])):
-            await message.answer(f"Тема обращения : {(GET_QUESTION(message.chat.id)[1][i])}\n" + f"Текст обращения : {(GET_QUESTION(message.chat.id)[0][i])}")
-        await Register.user_start.set()
-        await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+    if message.chat.id in GET_BAN():
+        await message.answer('Вы в были забанены админмистратором')
+    else:
+        if message.text == user_menu_button[0]:
+            await message.answer(f"Данный проект предназначен для следующих целей:")
+            await Register.user_start.set()
+            await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+        elif message.text == user_menu_button[1]:
+            await message.answer(f"Перед выбором тем обращений внимательно ознакомьтесь с содержанием требований",reply_markup=add_button(help_button))
+            await Register.project_list.set()
+            # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
+        elif message.text == user_menu_button[2]:
+            await message.answer(f"Ваша история обращений:")
+            for i in range(len(GET_QUESTION(message.chat.id)[0])):
+                await message.answer(f"Тема обращения : {(GET_QUESTION(message.chat.id)[1][i])}\n" + f"Текст обращения : {(GET_QUESTION(message.chat.id)[0][i])}")
+            await Register.user_start.set()
+            await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
 
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
