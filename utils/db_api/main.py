@@ -114,6 +114,7 @@ def GET_VIEW(class_question1):
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     if len(mass_description) == 0:
+
         return 'Все записи по данной теме просмотрены'
     return mass_description[0], GET_VIEW1(mass_description[0], class_question1)
 
@@ -162,5 +163,9 @@ def GET_COUNT_MESSAGE(class_question1):
     return mass_description[0]
 
 
-print(GET_VIEW('Project_1'))
-#print(GET_VIEW2(GET_VIEW1(GET_VIEW('Project_1'), 'Project_1')),class_question1,GET_VIEW('Project_1'))
+def GET_ALL():
+    a = db.select([db.func.count(Question.columns.DONE)])
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description[0]
