@@ -119,12 +119,16 @@ def GET_VIEW(class_question1):
             Question.columns.Class_question == class_question1)
         ResultProxy = connection.execute(query)
         return 'Все записи по данной теме просмотрены'
+    return mass_description[0]
+
+
+def GET_VIEW1(question, class_question1):
     query = db.update(Question).values(DONE=1)
     query = query.where(Question.columns.Class_question == class_question1).where(
-        Question.columns.Question == mass_description[0])
+        Question.columns.Question == question)
     ResultProxy = connection.execute(query)
     a = db.select([Question.columns.Id]).where(
-        Question.columns.Question == mass_description[0]).where(
+        Question.columns.Question == question).where(
         Question.columns.Class_question == class_question1)
     mass_description1 = []
     for row in connection.execute(a).fetchall():
@@ -134,7 +138,7 @@ def GET_VIEW(class_question1):
     mass_description2 = []
     for row in connection.execute(a).fetchall():
         mass_description2.append(row[0])
-    return mass_description[0], mass_description2[0]
+    return mass_description2[0]
 
 
 def GET_COUNT_MESSAGE(class_question1):
