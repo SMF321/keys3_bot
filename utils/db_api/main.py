@@ -52,8 +52,14 @@ def POST_USERNAME(id1, username1):
 
 def POST_QUESTION(id1, question1):
     query = db.update(Question).values(Question=question1)
+    query = query.where(Question.columns.Id == id1).where(
+        Question.columns.Question == '')
+    results = connection.execute(query)
 
-    query = query.where(Question.columns.Id == id1)
+
+def POST_QUESTION_DELETE(id1):
+    query = db.delete(Question)
+    query = query.where(Question.columns.Class_question == '')
     results = connection.execute(query)
 
 
@@ -110,3 +116,6 @@ def GET_QUESTION(id1):
     mass_description.append(mass_description1)
     mass_description.append(mass_description2)
     return mass_description
+
+
+POST_USERNAME(12, 'sda')
