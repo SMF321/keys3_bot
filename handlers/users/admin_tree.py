@@ -11,7 +11,7 @@ kostil = ""
 @dp.message_handler(state=Register.admin_start, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text == admin_menu_button[0]:
-        await message.answer(f"Выберите тему по которой хотите просмотреть обращения", reply_markup=add_button(GET_SUGGESTIONS()))
+        await message.answer(f"Выберите тему по которой хотите просмотреть обращения", reply_markup=add_button(GET_UNIQE_CLASS_QUESTION()))
         await Register.viewing_and_editing_requests.set()
         # await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
     elif message.text == admin_menu_button[1]:
