@@ -13,7 +13,7 @@ from utils.db_api.main import *
 @dp.message_handler(state=Register.user_start, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.chat.id in GET_BAN():
-        await message.answer('Вы в были забанены админмистратором')
+        await message.answer('Вы были забанены админмистратором')
     else:
         if message.text == user_menu_button[0]:
             await message.answer(f"Данный проект предназначен для следующих целей:")
@@ -33,6 +33,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
+    POST_USER_DATA(message.chat.id, message.chat.username)
     await message.answer('Список действующих пердложений:', reply_markup=add_button(GET_SUGGESTIONS()))
     await Register.info_about_work.set()
 
@@ -58,28 +59,6 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await message.answer('Напишите что-то о себе чтобы вас взяли в этот проект...')
         await Register.quesion.set()
 
-
-
-@dp.message_handler(state=Register.fio, content_types=types.ContentTypes.ANY)
-async def fio_regular(message: types.Message, state: FSMContext):
-    match = re.search(
-        r'[А-ЯЁ][а-яё]+\s+[А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ][а-яё]+)?', rf'{message.text}')
-    try:
-        if match.group(0):
-            try:
-                POST_USER(message.chat.id,message.text)
-                POST_USER_DATA(message.chat.id,message.text,message.chat.username)
-            except:
-                UPDATE__USER_DATA_USER(message.chat.id,message.text,message.chat.username)
-            await message.answer('Напишите что-то о себе чтобы вас взяли в этот проект...')
-            await Register.organization.set()
-            # try:
-                # POST_USER(message.chat.id, message.text)
-            # except:
-                # POST_EDIT_FIO(message.chat.id, message.text)
-    except:
-        await message.answer(f"Попробуйте еще раз:\n(Например : Иванов Иван Иванович)")
-        await Register.fio.set()
 
 
 
