@@ -5,6 +5,16 @@ connection = engine.connect()
 metadata = db.MetaData()
 
 
+mp = db.Table('Visit_card', metadata,
+              db.Column('Username',  db.String(), primary_key=True),
+              db.Column('Question', db.String(), nullable=False),
+              db.Column('Class_question', db.String(), nullable=False)
+              )
+metadata.create_all(engine)
+
+Visit = db.Table('Visit_card', metadata,
+                 autoload=True, autoload_with=engine)
+
 User_Data = db.Table('User_Data', metadata,
                      autoload=True, autoload_with=engine)
 Question = db.Table('Question', metadata, autoload=True, autoload_with=engine)
@@ -251,4 +261,7 @@ def GET_UNIQE_CLASS_QUESTION():
     return mass_description
 
 
-print(GET_UNIQE_CLASS_QUESTION())
+def POST_USERNAME_QUESTION_CLASS_QUESTION(username1, question1, class_question1):
+    query = db.insert(Visit).values(Username=username1, Question=question1,
+                                    Class_question=class_question1)
+    ResultProxy = connection.execute(query)
