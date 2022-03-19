@@ -101,7 +101,7 @@ def GET_QUESTION(id1):
 
 
 def DELETE_SUGGESTION(suggestion1):
-    query = db.delete(Suggest.columns.Id,
-                      Suggest.columns.Suggestion, Suggest.columns.Description)
+    query = db.delete(
+        Suggest)
     query = query.where(Suggest.columns.Suggestion == suggestion1)
     results = connection.execute(query)
