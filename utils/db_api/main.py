@@ -135,16 +135,16 @@ def GET_VIEW1(question, class_question1):
     mass_description1 = []
     for row in connection.execute(a).fetchall():
         mass_description1.append(row[0])
+    return mass_description1[0]
+
+
+def GET_VIEW2(id1, class_question1, question):
     query = db.update(Question).values(DONE=1)
     query = query.where(Question.columns.Class_question == class_question1).where(
         Question.columns.Question == question)
     ResultProxy = connection.execute(query)
-    return mass_description1[0]
-
-
-def GET_VIEW2(id1):
     if (id1 == -1):
-        return
+        return 'Все записи по данной теме просмотрены'
     a = db.select([User_Data.columns.Username]).where(
         User_Data.columns.Id == id1)
     mass_description2 = []
