@@ -163,8 +163,9 @@ def GET_COUNT_MESSAGE(class_question1):
     return mass_description[0]
 
 
-def GET_ALL():
-    a = db.select([db.func.count(Question.columns.DONE)])
+def GET_ALL_NULL():
+    a = db.select([db.func.count(Question.columns.DONE)]).where(
+        Question.columns.DONE == 0)
     mass_description = []
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
