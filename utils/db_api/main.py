@@ -10,6 +10,8 @@ User_Data = db.Table('User_Data', metadata,
 Question = db.Table('Question', metadata, autoload=True, autoload_with=engine)
 Suggest = db.Table('Current_Suggestion', metadata,
                    autoload=True, autoload_with=engine)
+Secret = db.Table('Secret_Table', metadata,
+                  autoload=True, autoload_with=engine)
 
 
 def POST_TEST(id1):
@@ -38,7 +40,7 @@ def POST_NEW_SUGGESTION_DESCRIPTION(description1):
 
 
 def POST_USER_DATA(id1, username1,):
-    query = db.insert(User_Data).values(Id=id1, Username=username1,BAN = 0)
+    query = db.insert(User_Data).values(Id=id1, Username=username1, BAN=0)
     ResultProxy = connection.execute(query)
 
 
@@ -183,6 +185,23 @@ def BAN(username1):
 def GET_BAN():
     a = db.select([User_Data.columns.Id]).where(
         User_Data.columns.BAN == 1)
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
+
+
+def GET_SECRET_KEY():
+    a = db.select([Secret.columns.Secret_key])
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
+
+
+def GET_SECRET_SUGGESTION(secret_key1):
+    a = db.select([Secret.columns.Secret_suggestion]).where(
+        Secret.columns.Secret_key == secret_key1)
     mass_description = []
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
