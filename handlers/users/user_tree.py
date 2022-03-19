@@ -42,8 +42,7 @@ async def fio_regular(message: types.Message, state: FSMContext):
         await Register.user_start.set()
         await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
 
-@dp.message_handler(state=Register.sekret, content_types=types.ContentTypes.ANY)
-async def fio_regular(message: types.Message, state: FSMContext):
+
 
 @dp.message_handler(state=Register.project_list, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
