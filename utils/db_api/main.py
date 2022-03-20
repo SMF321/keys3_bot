@@ -273,3 +273,11 @@ def GET_UNIQE_SECRET_SUGGESTION():
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description
+
+
+def GET_ID():
+    a = db.select([User_Data.columns.Id])
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
