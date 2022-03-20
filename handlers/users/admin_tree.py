@@ -11,26 +11,30 @@ kostil = ""
 @dp.message_handler(state=Register.admin_start, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text == admin_menu_button()[0]:
+        await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button()))
+        await Register.admin_start.set()
+    elif message.text == admin_menu_button()[2]:
         await message.answer(f"Выберите тему, по которой хотите просмотреть обращения", reply_markup=add_button(GET_UNIQE_CLASS_QUESTION()))
         await Register.viewing_and_editing_requests.set()
         # await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button))
-    elif message.text == admin_menu_button()[1]:
+    elif message.text == admin_menu_button()[3]:
         await message.answer(f"Введите название темы, которую хотите добавить:")
         await Register.created_chat.set()
         # await message.answer(f"Меню:", reply_markup=add_button(user_menu_button))
-    elif message.text == admin_menu_button()[2]:
+    elif message.text == admin_menu_button()[4]:
         await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_SUGGESTIONS()))
         await Register.deleted.set()
-    elif message.text.split(' ')[1] == admin_menu_button()[3].split(' ')[1]:
+    elif message.text.split(' ')[1] == admin_menu_button()[1].split(' ')[1]:
         await message.answer(f"Количество новых сообщений :", reply_markup=add_button_cont(GET_UNIQE_CLASS_QUESTION()))
         await message.answer(f"Нажмите на любую кнопку.")
         await Register.count.set()
-    elif message.text == admin_menu_button()[4]:
+    elif message.text == admin_menu_button()[5]:
         await message.answer(f"Введите секретный ключ, который хотите добавить:")
         await Register.add_sekret.set()
-    elif message.text == admin_menu_button()[5]:
+    elif message.text == admin_menu_button()[6]:
         await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_UNIQE_SECRET_SUGGESTION()))
         await Register.del_sekret.set()
+    
 
 
 @dp.message_handler(state=Register.del_sekret, content_types=types.ContentTypes.ANY)
