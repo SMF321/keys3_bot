@@ -4,6 +4,7 @@ import re
 
 from loader import dp
 
+from aiogram.types import ReplyKeyboardRemove
 from states.bot_states import Register
 from keyboards.default.bot_button import user_menu_button, add_button, help_button, back_button_or_not, back_add
 from utils.db_api.main import *
@@ -100,6 +101,6 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 async def fio_regular(message: types.Message, state: FSMContext):
     POST_QUESTION(message.chat.id, message.text)
     POST_QUESTION_DELETE()
-    await message.answer('🎊 Спасибо за Ваше обращение\n📬 Мы свяжемся с Вами в ближайшее время.\n❓ По интерисующим вопросам обращаться сюда.\nhttps://t.me/Text_project')
+    await message.answer('🎊 Спасибо за Ваше обращение\n📬 Мы свяжемся с Вами в ближайшее время.\n❓ По интересующим вопросам обращаться сюда.')
     await Register.user_start.set()
     await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))

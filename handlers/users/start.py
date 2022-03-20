@@ -9,7 +9,7 @@ from states.bot_states import Register
 from keyboards.default.bot_button import add_button, user_menu_button, admin_menu_button
 
 
-@dp.message_handler(CommandStart())
+@dp.message_handler(CommandStart(), state="*")
 async def bot_start(message: types.Message, state: FSMContext):
     if str(message.chat.id) in ADMINS:
         await message.answer(f"Привет админ, {message.from_user.full_name}!")
