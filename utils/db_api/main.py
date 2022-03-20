@@ -178,7 +178,7 @@ def GET_ALL_NULL():
 
 
 def BAN(username1):
-    username1 = username1[1:-1]
+    username1 = username1[1:]
     query = db.update(User_Data).values(BAN=1)
     query = query.where(User_Data.columns.Username == username1)
     ResultProxy = connection.execute(query)

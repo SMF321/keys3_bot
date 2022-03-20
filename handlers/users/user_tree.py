@@ -31,14 +31,14 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
             await Register.user_start.set()
             await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
         elif message.text == user_menu_button[3]:
-            await message.answer(f"🔑 Введите секретный ключ 🔑")
+            await message.answer(f"🔑 Ключевое слово 🔑\n(Например : BACKEND)")
             await Register.sekret.set()
 
 
 @dp.message_handler(state=Register.sekret, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
     if message.text in GET_SECRET_KEY():
-        await message.answer('☑️ Вы успешно авторизованы \nПросмотрите список приватных предложений:', reply_markup=add_button(GET_SECRET_SUGGESTION(message.text)).add(back_add))
+        await message.answer('☑️ Вы успешно авторизованы \nПросмотрите список по вашему запросу предложений:', reply_markup=add_button(GET_SECRET_SUGGESTION(message.text)).add(back_add))
         await Register.print_sekret_topics.set()
     else:
         await Register.user_start.set()
@@ -99,8 +99,11 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.quesion, content_types=types.ContentTypes.ANY)
 async def fio_regular(message: types.Message, state: FSMContext):
-    POST_QUESTION(message.chat.id, message.text)
+    msg = message.text[0:500]
+    POST_QUESTION(message.chat.id, msg)
     POST_QUESTION_DELETE()
     await message.answer('🎊 Спасибо за Ваше обращение\n📬 Мы свяжемся с Вами в ближайшее время.\n❓ По интересующим вопросам обращаться сюда.')
     await Register.user_start.set()
     await message.answer(f"🤔 Меню 🤔", reply_markup=add_button(user_menu_button))
+    
+    
