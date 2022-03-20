@@ -116,6 +116,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.ban, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
+    
     await message.answer(BAN(message.text) )
     await Register.admin_start.set()
     await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button()))

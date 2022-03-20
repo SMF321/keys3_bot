@@ -1,3 +1,3 @@
-BOT_TOKEN = "5243343360:AAEX3PuzTfSymVyaIK13Y6wL-FMuto06yFU"  # Забираем значение типа str
+BOT_TOKEN = "5119107183:AAFl7mHH2rGx0yGsr3I2idlLkKCEI6wdFro"  # Забираем значение типа str
 ADMINS = ["1300419285"]  # Тут у нас будет список из админов
 
