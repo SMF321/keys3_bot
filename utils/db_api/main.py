@@ -283,7 +283,7 @@ def GET_ID():
     return mass_description
 
 
-def GET_UNIQE_CLASS_QUESTION():
+def GET_UNIQE_CLASS_QUESTION1():
     a = db.select(distinct[Question.columns.Class_question]).where(
         Question.columns.DONE == 0)
     mass_description = []
