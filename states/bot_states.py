@@ -14,6 +14,9 @@ class Register (StatesGroup):  # создаю класс где буду хра�
     add_sekret2 = State()
     add_sekret3 = State()
     del_sekret = State()
+    rassilka = State()
+    rassilka1 = State()
+
 
 
 ##############################

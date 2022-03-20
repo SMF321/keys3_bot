@@ -1,6 +1,6 @@
-from aiogram import types
+from aiogram import Bot, types
 from aiogram.dispatcher import FSMContext
-
+from aiogram import Dispatcher
 from loader import dp
 
 from states.bot_states import Register
@@ -34,14 +34,29 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
     elif message.text == admin_menu_button()[6]:
         await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_UNIQE_SECRET_SUGGESTION()))
         await Register.del_sekret.set()
+    elif message.text == admin_menu_button()[7]:
+        await message.answer(f"Введите текст для рассылки :\n(Например :\nТема : Для BACKEND разработчиков\nОбращение : Приглашаем Вас учасвтвовать в проете\nНапишите телеграм боту https://t.me/KEYS3_RAINFORCE_bot ключ : BACKEND )")
+        await Register.rassilka.set()
     
+@dp.message_handler(state=Register.rassilka, content_types=types.ContentTypes.ANY)
+async def bot_echo_all(message: types.Message, state: FSMContext):
+    global text_message
+    text_message = message.text
+    await message.answer('Введите чере запятую имена пользователей для произведеняи рассылки :\n(Например : a_n_d_r_u_x_a_0,SMF321,Hardbiter,SMF852456)')
+    await Register.rassilka1.set()
 
+@dp.message_handler(state=Register.rassilka1, content_types=types.ContentTypes.ANY)
+async def bot_echo_all(message: types.Message, state: FSMContext):
+    await dp.bot.send_message(chat_id=906106879,text=f"{message.text}|{text_message}")
+    await message.answer('Рассылка произведена!')
+    await message.answer(f"Меню:", reply_markup=add_button(admin_menu_button()))
+    await Register.admin_start.set()
 
 @dp.message_handler(state=Register.del_sekret, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
     if message.text in GET_UNIQE_SECRET_SUGGESTION():
         DELETE_SECRET_SUGGESTION(message.text)
-        await message.answer('Вы успешно удалили секретную тему')
+        await message.answer('Вы успешно удалить секретную тему')
         await message.answer(f'Список секретных тем :')
         for i in GET_UNIQE_SECRET_SUGGESTION():
             await message.answer('❌ '+f'{i}')
@@ -86,11 +101,11 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=Register.viewing_and_editing_requests, content_types=types.ContentTypes.ANY)
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    global kostil
+    global help_text
     if message.text in GET_UNIQE_CLASS_QUESTION():
-        kostil = message.text
-        print(kostil)
-        test = GET_VIEW(kostil)
+        help_text = message.text
+        print(help_text)
+        test = GET_VIEW(help_text)
         if test == 'Все записи по данной теме просмотрены':
             await message.answer('Все записи по данной теме просмотрены')
             await Register.admin_start.set()
@@ -98,8 +113,8 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         else:
             await message.answer(f'Имя пользоваетя : @{test[1]}\n'+f'Текст обращения :\n{test[0]}', reply_markup=add_button(admin_1_button))
     if message.text == 'Следующее объявление':
-        print(kostil)
-        test = GET_VIEW(kostil)
+        print(help_text)
+        test = GET_VIEW(help_text)
         if test == 'Все записи по данной теме просмотрены':
             await message.answer('Все записи по данной теме просмотрены')
             await Register.admin_start.set()
