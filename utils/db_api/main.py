@@ -281,3 +281,12 @@ def GET_ID():
     for row in connection.execute(a).fetchall():
         mass_description.append(row[0])
     return mass_description
+
+
+def GET_UNIQE_CLASS_QUESTION():
+    a = db.select(distinct[Question.columns.Class_question]).where(
+        Question.columns.DONE == 0)
+    mass_description = []
+    for row in connection.execute(a).fetchall():
+        mass_description.append(row[0])
+    return mass_description
