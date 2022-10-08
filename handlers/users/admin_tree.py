@@ -35,7 +35,7 @@ async def bot_echo_all(message: types.Message, state: FSMContext):
         await message.answer(f"Выберите тему для удаления:", reply_markup=add_button(GET_UNIQE_SECRET_SUGGESTION()))
         await Register.del_sekret.set()
     elif message.text == admin_menu_button()[7]:
-        await message.answer(f"Введите текст для рассылки :\n(Например :\nТема : Для BACKEND разработчиков\nОбращение : Приглашаем Вас учасвтвовать в проете\nНапишите телеграм боту https://t.me/KEYS3_RAINFORCE_bot ключ : BACKEND )")
+        await message.answer(f"Введите текст для рассылки :\n(Например :\nТема : Для BACKEND разработчиков\nОбращение : Приглашаем Вас участвовать в проете\nНапишите телеграм боту https://t.me/KEYS3_RAINFORCE_bot ключ : BACKEND )")
         await Register.rassilka.set()
     
 @dp.message_handler(state=Register.rassilka, content_types=types.ContentTypes.ANY)
